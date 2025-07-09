@@ -32,7 +32,7 @@ def process_files(
     file_paths: list[str], chunk_size: int = 500, max_files: int = -1
 ) -> list[dict]:
     processed_chunks = []
-    for i, path in enumerate(file_paths):
+    for i, path in tqdm(enumerate(file_paths[:max_files]), desc="File processing", total=len(file_paths) if max_files == -1 else max_files):
         if 0 < max_files <= i:
             break
         ext = Path(path).suffix.lower()
@@ -41,7 +41,6 @@ def process_files(
             logging.warning(f"Nessun extractor per {path}")
             continue
         try:
-            # supporto sia vecchi che nuovi extractor
             result = extractor(path)
             if isinstance(result, tuple):
                 text, title = result

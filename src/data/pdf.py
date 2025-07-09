@@ -1,5 +1,6 @@
 import logging
 from pathlib import Path
+import tempfile
 
 import fitz
 import pikepdf
@@ -42,8 +43,9 @@ def extract_text_from_pdf(file_path: str) -> tuple[str, str]:
     1. Pulisce il PDF (con PikePDF o MuPDF)
     2. Estrae testo e titolo dal PDF pulito
     """
-    cleaned_pdf = clean_pdf(file_path)
-    text = extract_text(cleaned_pdf)
+    with tempfile.TemporaryDirectory() as temp_dir:
+        cleaned_pdf = clean_pdf(file_path, temp_dir)
+        text = extract_text(cleaned_pdf)
 
     title = ""
     try:
@@ -71,12 +73,14 @@ def extract_text_from_pdf(file_path: str) -> tuple[str, str]:
             pass
         
     if not title:
-        # Più robusto: split su qualsiasi newline, prendi la prima riga non vuota
-        for line in text.replace('\r', '\n').split('\n'):
-            candidate = line.strip()
-            if candidate:
-                title = candidate
+        lines = [line.strip() for line in text.replace('\r', '\n').split('\n')]
+        buffer = []
+        for line in lines:
+            if line:
+                buffer.append(line)
+            elif buffer:
                 break
+        title = " ".join(buffer) if buffer else ""
 
     return text, title
 
