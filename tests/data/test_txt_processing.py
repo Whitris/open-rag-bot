@@ -1,5 +1,7 @@
 import pytest
+
 from src.data.txt import extract_text_from_txt
+
 
 @pytest.fixture
 def sample_txt(tmp_path):
@@ -7,10 +9,12 @@ def sample_txt(tmp_path):
     path.write_text("Title line\nSome other content\nAnother line")
     return str(path)
 
+
 def test_extract_text_and_title_from_txt(sample_txt):
     text, title = extract_text_from_txt(sample_txt)
     assert "Title line" in text
     assert title == "Title line"
+
 
 def test_extract_text_and_title_from_txt_skip_empty(tmp_path):
     path = tmp_path / "empty_lines.txt"

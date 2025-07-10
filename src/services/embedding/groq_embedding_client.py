@@ -1,7 +1,8 @@
 from groq import Groq
 from tqdm import tqdm
-from src.services.embedding.embedding_client import EmbeddingClient
+
 from src.config.settings import groq_api_key
+from src.services.embedding.embedding_client import EmbeddingClient
 
 
 class GroqEmbeddingClient(EmbeddingClient):

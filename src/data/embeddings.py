@@ -1,30 +1,32 @@
-import os
-import numpy as np
+import chromadb
 import pandas as pd
-import faiss
+
+from src.services.embedding.embedding_client import EmbeddingClient
 
 
-def load_texts(csv_path: str) -> list[str]:
-    data = pd.read_csv(csv_path).dropna()
-    return data.to_numpy().flatten().tolist()
+def load_texts_with_metadata(csv_path: str) -> list[dict]:
+    df = pd.read_csv(csv_path)
+    return df.to_dict(orient="records")
 
 
-def generate_embeddings(model, texts: list[str]) -> np.ndarray:
-    return model.encode(texts)
+def generate_embeddings(
+    client: EmbeddingClient, texts: list[str], show_progress: bool = False
+):
+    return client.encode(texts, show_progress)
 
 
-def build_or_load_index(embeddings: np.ndarray, index_path: str) -> faiss.Index:
-    if os.path.isfile(index_path):
-        index = faiss.read_index(index_path)
-    else:
-        dim = embeddings.shape[1]
-        index = faiss.IndexFlatL2(dim)
-    return index
+def build_or_load_collection(chroma_dir, collection_name):
+    client = chromadb.PersistentClient(path=chroma_dir)
+    collection = client.get_or_create_collection(collection_name)
+    return collection
 
 
-def add_embeddings_to_index(index: faiss.Index, embeddings: np.ndarray):
-    index.add(embeddings.astype("float32"))
-
-
-def save_index(index: faiss.Index, index_path: str):
-    faiss.write_index(index, index_path)
+def add_embeddings_to_collection(collection, embeddings, texts, metadatas, ids):
+    if hasattr(embeddings, "tolist"):
+        embeddings = embeddings.tolist()
+    collection.add(
+        embeddings=embeddings,
+        documents=texts,
+        metadatas=metadatas,
+        ids=ids,
+    )

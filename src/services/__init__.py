@@ -1,5 +1,5 @@
-from src.services.llm.llm_client import LLMClient
 from src.services.embedding.embedding_client import EmbeddingClient
+from src.services.llm.llm_client import LLMClient
 
 
 def get_llm_client() -> LLMClient:

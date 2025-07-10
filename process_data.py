@@ -1,7 +1,8 @@
-import typer
 import logging
 from pathlib import Path
 from time import perf_counter
+
+import typer
 
 from src.data.load import get_all_files, process_files
 from src.data.save import save_chunks_to_csv

@@ -1,6 +1,6 @@
 import logging
-from pathlib import Path
 import tempfile
+from pathlib import Path
 
 import fitz
 import pikepdf
@@ -71,9 +71,9 @@ def extract_text_from_pdf(file_path: str) -> tuple[str, str]:
                 doc.close()
         except Exception:
             pass
-        
+
     if not title:
-        lines = [line.strip() for line in text.replace('\r', '\n').split('\n')]
+        lines = [line.strip() for line in text.replace("\r", "\n").split("\n")]
         buffer = []
         for line in lines:
             if line:
@@ -83,4 +83,3 @@ def extract_text_from_pdf(file_path: str) -> tuple[str, str]:
         title = " ".join(buffer) if buffer else ""
 
     return text, title
-

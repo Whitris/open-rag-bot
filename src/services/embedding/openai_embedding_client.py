@@ -1,7 +1,8 @@
 from openai import OpenAI
 from tqdm import tqdm
-from src.services.embedding.embedding_client import EmbeddingClient
+
 from src.config.settings import openai_api_key
+from src.services.embedding.embedding_client import EmbeddingClient
 
 
 class OpenAIEmbeddingClient(EmbeddingClient):

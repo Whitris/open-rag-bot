@@ -209,4 +209,5 @@ __marimo__/
 .vscode/
 /data/
 assets/
+chroma/
 input_docs/

@@ -24,4 +24,5 @@ index_dir = data_dir / "index"
 
 input_dir = input_dir / "docs"
 csv_path = processed_dir / "stuff.csv"
-index_path = index_dir / "faiss_index.idx"
+default_chroma_path = index_dir / "chromadb"
+default_collection_name = "documents"

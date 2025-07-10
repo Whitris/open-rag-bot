@@ -9,7 +9,6 @@ from src.data.pdf import extract_text_from_pdf
 from src.data.txt import extract_text_from_txt
 from src.data.utils import split_text_into_chunks
 
-
 extractors: dict[str, Callable[[str], str]] = {
     ".pdf": extract_text_from_pdf,
     ".txt": extract_text_from_txt,
@@ -32,7 +31,11 @@ def process_files(
     file_paths: list[str], chunk_size: int = 500, max_files: int = -1
 ) -> list[dict]:
     processed_chunks = []
-    for i, path in tqdm(enumerate(file_paths[:max_files]), desc="File processing", total=len(file_paths) if max_files == -1 else max_files):
+    for i, path in tqdm(
+        enumerate(file_paths[:max_files]),
+        desc="File processing",
+        total=len(file_paths) if max_files == -1 else max_files,
+    ):
         if 0 < max_files <= i:
             break
         ext = Path(path).suffix.lower()

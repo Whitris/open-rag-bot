@@ -1,5 +1,6 @@
 import pytest
-from src.services import get_llm_client, get_embedding_client
+
+from src.services import get_embedding_client, get_llm_client
 
 
 def test_get_llm_client_groq(mocker):

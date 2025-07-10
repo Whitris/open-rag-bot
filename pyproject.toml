@@ -5,7 +5,21 @@ description = "Default template for PDM package"
 authors = [
     {name = "Nicola Marcantognini", email = "nicola.marcantognini@outlook.com"},
 ]
-dependencies = ["streamlit>=1.46.1", "pillow>=11.3.0", "python-dotenv>=1.1.1", "faiss-cpu>=1.11.0", "pandas>=2.3.1", "numpy>=2.3.1", "PyMuPDF>=1.26.3", "pdfminer-six>=20250506", "tqdm>=4.67.1", "pikepdf>=9.9.0", "groq>=0.29.0", "openai>=1.93.2", "typer>=0.16.0"]
+dependencies = [
+    "streamlit>=1.46.1",
+    "pillow>=11.3.0",
+    "python-dotenv>=1.1.1",
+    "chromadb>=0.4.24",
+    "pandas>=2.3.1",
+    "numpy>=2.3.1",
+    "PyMuPDF>=1.26.3",
+    "pdfminer-six>=20250506",
+    "tqdm>=4.67.1",
+    "pikepdf>=9.9.0",
+    "groq>=0.29.0",
+    "openai>=1.93.2",
+    "typer>=0.16.0",
+]
 requires-python = "==3.12.*"
 readme = "README.md"
 license = {text = "MIT"}
@@ -14,8 +28,12 @@ license = {text = "MIT"}
 [tool.pdm]
 distribution = false
 
+[tool.pdm.build]
+package-dir = "src"
+
 [dependency-groups]
 dev = [
     "pytest>=8.4.1",
     "pytest-mock>=3.14.1",
+    "ruff>=0.12.2",
 ]

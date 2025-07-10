@@ -1,6 +1,8 @@
-import pytest
 import docx
+import pytest
+
 from src.data.docx import extract_text_from_docx
+
 
 @pytest.fixture
 def sample_docx(tmp_path):
@@ -11,10 +13,12 @@ def sample_docx(tmp_path):
     doc.save(str(path))
     return str(path)
 
+
 def test_extract_text_and_title_from_docx_heading(sample_docx):
     text, title = extract_text_from_docx(sample_docx)
     assert "Document Title" in text
     assert title == "Document Title"
+
 
 def test_extract_text_and_title_from_docx_fallback(tmp_path):
     path = tmp_path / "plain.docx"
