@@ -268,4 +268,3 @@ This project makes use of:
 - [ChromaDB](https://www.trychroma.com/) for vector search and storage
 - [Typer](https://typer.tiangolo.com/) for the CLI
 - [OpenAI](https://platform.openai.com/) and [Groq](https://console.groq.com/) APIs for LLM and embeddings
-- 
