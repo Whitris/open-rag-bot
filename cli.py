@@ -6,7 +6,7 @@ app = typer.Typer(help="RAG Chatbot CLI")
 
 
 @app.command()
-def chat(question: str = typer.Argument(..., help="Domanda da porre al sistema")):
+def chat():
     history = [
         {
             "role": "system",
@@ -14,9 +14,21 @@ def chat(question: str = typer.Argument(..., help="Domanda da porre al sistema")
         }
     ]
     chat_bot = get_chat_bot(history)
-    response = chat_bot.answer(question)
+    typer.echo("Chatbot started. Type your question ('exit' to exit).")
 
-    typer.echo(response)
+    while True:
+        try:
+            question = typer.prompt("You")
+            if question.strip().lower() in {"exit", "quit"}:
+                typer.echo("Goodbye.")
+                break
+            response = chat_bot.answer(question)
+            typer.echo(f"Bot: {response}\n")
+        except (KeyboardInterrupt, EOFError, typer.Abort):
+            typer.echo("Interrupted. Goodbye.")
+            break
+        except Exception as e:
+            typer.echo(f"Error: {e}")
 
 
 if __name__ == "__main__":
