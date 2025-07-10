@@ -37,3 +37,5 @@ input_dir = input_dir / "docs"
 csv_path = processed_dir / "stuff.csv"
 default_chroma_path = index_dir / "chromadb"
 default_collection_name = "documents"
+
+icon_path = os.getenv("ICON_PATH")
