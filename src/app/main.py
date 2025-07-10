@@ -7,9 +7,9 @@ import streamlit as st
 from PIL import Image
 
 from src.config.settings import csv_path, default_chroma_path
-from src.core.loader import load_csv, load_index
+from src.core.loader import load_collection, load_csv
 from src.core.prompt import build_prompt
-from src.core.retriever import retrieve_relevant_docs
+from src.core.retriever.retriever import retrieve_relevant_docs
 from src.services import get_embedding_client, get_llm_client
 
 st.set_page_config(layout="wide", page_title="ASP Bot")
@@ -25,7 +25,7 @@ with col3:
 def get_clients():
     embedding_client = get_embedding_client()
     llm_client = get_llm_client()
-    index = load_index(default_chroma_path)
+    index = load_collection(default_chroma_path)
     stuff = load_csv(csv_path)
     return embedding_client, llm_client, index, stuff
 

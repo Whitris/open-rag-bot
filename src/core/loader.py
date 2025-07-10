@@ -7,7 +7,7 @@ import pandas as pd
 from chromadb.api.models import Collection
 
 
-def load_index(
+def load_collection(
     path: str | Path = "chromadb", collection_name: str = "default"
 ) -> Collection:
     """Load or create a Chroma collection.

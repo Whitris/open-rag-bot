@@ -16,6 +16,11 @@ if not groq_api_key and llm_provider == "groq":
 if not openai_api_key and ("openai" in [embedding_provider, llm_provider]):
     raise RuntimeError("OPENAI_API_KEY not set in environment or .env")
 
+default_llm_model = (
+    "llama-3.3-70b-versatile" if llm_provider == "groq" else "gpt-4.1-mini"
+)
+llm_model = os.getenv("LLM_MODEL", default_llm_model).lower()
+
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 data_dir = BASE_DIR / "data"
 input_dir = BASE_DIR / "input_docs"

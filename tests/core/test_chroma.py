@@ -1,16 +1,22 @@
 import chromadb
 import numpy as np
+import pytest
 
-from src.core.loader import load_index
-from src.core.retriever import retrieve_relevant_docs
+from src.core.loader import load_collection
+from src.core.retriever import get_context_retriever
+
+
+@pytest.fixture()
+def retriever():
+    return get_context_retriever()
 
 
 def test_load_index_returns_collection(tmp_path):
-    collection = load_index(tmp_path, collection_name="test")
+    collection = load_collection(tmp_path, collection_name="test")
     assert collection.name == "test"
 
 
-def test_retrieve_relevant_docs(tmp_path):
+def test_retrieve_relevant_docs(tmp_path, retriever):
     client = chromadb.PersistentClient(path=str(tmp_path))
     collection = client.get_or_create_collection(name="test")
     docs = ["a", "b", "c"]
@@ -21,17 +27,15 @@ def test_retrieve_relevant_docs(tmp_path):
         embeddings=embeddings.tolist(),
     )
 
-    class DummyModel:
+    class DummyClient:
         def encode(self, texts):
             return np.array([[1.5]])
 
-    model = DummyModel()
-    results = retrieve_relevant_docs(
+    retriever.collection = collection
+    retriever.embedding_client = DummyClient()
+    results = retriever.retrieve_relevant_docs(
         "question",
-        model,
-        collection,
-        # docs,
         k=2,
     )
     assert results
-    assert all(res in docs for res in results)
+    assert all(res["content"] in docs for res in results)

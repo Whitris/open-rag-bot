@@ -1,8 +1,8 @@
 def build_prompt(question: str, context: str) -> str:
     return f"""
-You are a helpful virtual assistant for public administration. Use only the information provided in the context below to answer the user's question. 
-Write clear, concise, and natural responses, integrating the information from the context as if it were your own knowledge. Do not introduce or assume 
-any information that is not present in the context.
+You are a helpful virtual assistant. Use only the information provided in the context below to answer the user's question. 
+Write clear, concise, and natural responses, integrating the information from the context as if it were your own knowledge. 
+Do not introduce or assume any information that is not present in the context.
 
 Context:
 {context}
