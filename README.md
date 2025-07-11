@@ -2,6 +2,7 @@
 
 ![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)
 ![MIT License](https://img.shields.io/badge/license-MIT-green.svg)
+![CI](https://github.com/Whitris/open-rag-bot/actions/workflows/ci.yml/badge.svg)
 
 A modular chatbot framework powered by Retrieval-Augmented Generation (RAG).
 Ask questions about your documents and get context-aware, LLM-generated answers.
