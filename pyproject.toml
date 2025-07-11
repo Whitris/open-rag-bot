@@ -43,22 +43,25 @@ exclude = [
   "migrations/",
 ]
 
+[tool.ruff.pydocstyle]
+convention = "google"
+
 [tool.ruff.lint]
 select = [
-  "E",      # Errori PEP8 base
-  "F",      # Errori di flake8
-  "B",      # Bugbear: errori comuni di coding
+  "E",      # Base PEP8 errors
+  "F",      # Flake8 errors
+  "B",      # Bugbear: common coding mistakes
   "I",      # Import sorting
-  "C90",    # Complexity: McCabe
+  "C90",    # Code complexity (McCabe)
   "T",      # Type annotations
-  "N",      # Naming style
-  "S",      # Sicurezza (bandit)
-  "D",      # Docstring
-  "UP",     # Aggiornamenti Python moderni
-  "A",      # Built-in shadowing
-  "ASYNC",  # Errori async
-  "TRY",    # Try/Except errori
-  "SIM",    # Semplicità, semplificazione
+  "N",      # Naming conventions
+  "S",      # Security issues (bandit)
+  "D",      # Docstring style and completeness
+  "UP",     # Python version upgrade suggestions
+  "A",      # Built-in name shadowing
+  "ASYNC",  # Async-related issues
+  "TRY",    # Try/except best practices
+  "SIM",    # Code simplification opportunities
   "PT",     # Pytest best practices
 ]
 ignore = [
@@ -72,7 +75,6 @@ ignore = [
   "D213",   # Prefer D212 (multi-line summary on first line)
   "S101",   # Idiomatic use of pytest assert
 ]
-
 
 
 [dependency-groups]
