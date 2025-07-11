@@ -35,6 +35,39 @@ package-dir = "src"
 [tool.pytest.ini_options]
 pythonpath = ["."]
 
+[tool.ruff]
+line-length = 100
+fix = true
+# Attiva più "select" per sicurezza, complessità, type hints, ecc.
+select = [
+  "E",      # Errori PEP8 base
+  "F",      # Errori di flake8
+  "B",      # Bugbear: errori comuni di coding
+  "I",      # Import sorting
+  "C90",    # Complexity: McCabe
+  "T",      # Type annotations
+  "N",      # Naming style
+  "S",      # Sicurezza (bandit)
+  "D",      # Docstring
+  "UP",     # Aggiornamenti Python moderni
+  "A",      # Built-in shadowing
+  "ASYNC",  # Errori async
+  "TRY",    # Try/Except errori
+  "SIM",    # Semplicità, semplificazione
+  "PT",     # Pytest best practices
+]
+# Escludi (ad esempio) file di migrazione o build se servono
+exclude = [
+  "build/",
+  "migrations/",
+]
+# Se vuoi ignorare errori specifici:
+ignore = [
+  "D100",   # (esempio) Ignore docstring missing on module
+  "D104",   # Ignore missing docstring in package
+]
+
+
 [dependency-groups]
 dev = [
     "pytest>=8.4.1",
