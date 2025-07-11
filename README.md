@@ -30,7 +30,6 @@ open-rag-chatbot/
 ├── tests/ # Unit and integration tests
 ├── data/ # Local, non-versioned data (indexed files, outputs)
 ├── cli.py
-├── main.py
 ├── process_data.py
 ├── generate_embeddings.py
 ├── requirements.txt
