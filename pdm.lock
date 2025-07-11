@@ -5,7 +5,7 @@
 groups = ["default", "dev"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:5ed9dc3fcab58fe91701a3cabb2cb49655144774b9fa61d23399f1f0bad9f03b"
+content_hash = "sha256:2c834716b27208d4d67da00d2252a9c72c522830e57ed0143c0d6f5967985cf8"
 
 [[metadata.targets]]
 requires_python = "==3.12.*"
@@ -1479,6 +1479,21 @@ dependencies = [
 files = [
     {file = "python-dateutil-2.9.0.post0.tar.gz", hash = "sha256:37dd54208da7e1cd875388217d5e00ebd4179249f90fb72437e91a35459a0ad3"},
     {file = "python_dateutil-2.9.0.post0-py2.py3-none-any.whl", hash = "sha256:a8b2bc7bffae282281c8140a97d3aa9c14da0b136dfe83f850eea9a5f7470427"},
+]
+
+[[package]]
+name = "python-docx"
+version = "1.2.0"
+requires_python = ">=3.9"
+summary = "Create, read, and update Microsoft Word .docx files."
+groups = ["default"]
+dependencies = [
+    "lxml>=3.1.0",
+    "typing-extensions>=4.9.0",
+]
+files = [
+    {file = "python_docx-1.2.0-py3-none-any.whl", hash = "sha256:3fd478f3250fbbbfd3b94fe1e985955737c145627498896a8a6bf81f4baf66c7"},
+    {file = "python_docx-1.2.0.tar.gz", hash = "sha256:7bc9d7b7d8a69c9c02ca09216118c86552704edc23bac179283f2e38f86220ce"},
 ]
 
 [[package]]

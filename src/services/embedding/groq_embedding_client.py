@@ -9,6 +9,8 @@ class GroqEmbeddingClient(EmbeddingClient):
     def __init__(
         self, api_key: str = groq_api_key, model: str = "llama-3.3-70b-versatile"
     ):
+        if not api_key:
+            raise RuntimeError("GROQ_API_KEY not set in environment or .env")
         self.client = Groq(api_key=api_key)
         self.model = model
 

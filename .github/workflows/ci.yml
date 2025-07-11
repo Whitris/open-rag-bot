@@ -15,6 +15,11 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Set test environment variables
+        run: |
+          echo "GROQ_API_KEY=dummy" >> $GITHUB_ENV
+          echo "OPENAI_API_KEY=dummy" >> $GITHUB_ENV
+
       - name: Install PDM
         run: python -m pip install --upgrade pip pdm
 

@@ -9,6 +9,8 @@ class OpenAIEmbeddingClient(EmbeddingClient):
     def __init__(
         self, api_key: str = openai_api_key, model: str = "text-embedding-3-small"
     ):
+        if not api_key:
+            raise RuntimeError("OPENAI_API_KEY not set in environment or .env")
         self.client = OpenAI(api_key=api_key)
         self.model = model
 

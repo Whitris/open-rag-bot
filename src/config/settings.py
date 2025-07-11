@@ -10,12 +10,6 @@ openai_api_key = os.getenv("OPENAI_API_KEY")
 embedding_provider = os.getenv("EMBEDDING_PROVIDER", "openai").lower()
 llm_provider = os.getenv("LLM_PROVIDER", "groq").lower()
 
-if not groq_api_key and llm_provider == "groq":
-    raise RuntimeError("GROQ_API_KEY not set in environment or .env")
-
-if not openai_api_key and ("openai" in [embedding_provider, llm_provider]):
-    raise RuntimeError("OPENAI_API_KEY not set in environment or .env")
-
 default_light_llm_model = (
     "llama-3.1-8b-instant" if llm_provider == "groq" else "gpt-4.1-nano"
 )
