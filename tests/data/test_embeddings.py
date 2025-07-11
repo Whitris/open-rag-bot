@@ -83,7 +83,7 @@ def test_add_embeddings_to_collection(tmp_path):
     assert res["metadatas"][0]["filename"] == "f1.txt"
 
 
-@pytest.mark.parametrize("n_texts, n_dim", [(2, 8), (10, 4)])
+@pytest.mark.parametrize(("n_texts", "n_dim"), [(2, 8), (10, 4)])
 def test_end_to_end(tmp_path, n_texts, n_dim):
     df = pd.DataFrame(
         [

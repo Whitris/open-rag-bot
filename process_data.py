@@ -16,16 +16,10 @@ def process(
     output_csv: str = typer.Argument(..., help="Percorso file CSV di output"),
     chunk_size: int = typer.Option(500, help="Dimensione chunk in caratteri"),
     max_files: int = typer.Option(-1, help="Numero massimo di file da processare"),
-    formats: str = typer.Option(
-        "pdf,txt,docx", help="Formati da processare, separati da virgola"
-    ),
+    formats: str = typer.Option("pdf,txt,docx", help="Formati da processare, separati da virgola"),
 ):
-    """
-    Estrai testo da documenti (pdf, txt, docx) e salva i chunk in un CSV per RAG.
-    """
-    logging.basicConfig(
-        level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s"
-    )
+    """Extract text from documents (pdf, txt, docx) and save chunks to a CSV for RAG."""
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     input_path = Path(input_dir)
     if not input_path.is_dir():
         typer.echo(f"Errore: Cartella {input_dir} non trovata.", err=True)

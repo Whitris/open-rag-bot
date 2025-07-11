@@ -1,6 +1,6 @@
 import logging
+from collections.abc import Callable
 from pathlib import Path
-from typing import Callable
 
 from tqdm import tqdm
 
@@ -27,9 +27,7 @@ def get_all_files(root_dir: str, extensions=None) -> list[str]:
     ]
 
 
-def process_files(
-    file_paths: list[str], chunk_size: int = 500, max_files: int = -1
-) -> list[dict]:
+def process_files(file_paths: list[str], chunk_size: int = 500, max_files: int = -1) -> list[dict]:
     processed_chunks = []
     for i, path in tqdm(
         enumerate(file_paths[:max_files]),

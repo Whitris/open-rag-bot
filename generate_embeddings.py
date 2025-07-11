@@ -16,13 +16,9 @@ app = typer.Typer()
 def generate(
     csv_path: str = typer.Argument(..., help="Path to CSV file with text data"),
     chroma_dir: str = typer.Option(index_dir, help="Directory for Chroma DB"),
-    collection_name: str = typer.Option(
-        default_collection_name, help="Collection name"
-    ),
+    collection_name: str = typer.Option(default_collection_name, help="Collection name"),
 ):
-    """
-    Generate and store embeddings to Chroma vector DB.
-    """
+    """Generate and store embeddings to Chroma vector DB."""
     entries = load_texts_with_metadata(csv_path)
     texts = [e["text"] for e in entries]
     metadatas = [

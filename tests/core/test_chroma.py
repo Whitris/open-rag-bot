@@ -6,7 +6,7 @@ from src.core.loader import load_collection
 from src.core.retriever import get_context_retriever
 
 
-@pytest.fixture()
+@pytest.fixture
 def retriever():
     return get_context_retriever()
 

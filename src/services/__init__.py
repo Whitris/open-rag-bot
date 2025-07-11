@@ -1,3 +1,4 @@
+from src.exceptions import UnknownProviderError
 from src.services.embedding.embedding_client import EmbeddingClient
 from src.services.llm.llm_client import LLMClient
 
@@ -16,7 +17,7 @@ def get_llm_client() -> LLMClient:
 
         return OpenAIClient(api_key=openai_api_key)
     else:
-        raise ValueError(f"Unknown LLM provider: {llm_provider}")
+        raise UnknownProviderError("LLM", llm_provider)
 
 
 def get_embedding_client() -> EmbeddingClient:
@@ -32,4 +33,4 @@ def get_embedding_client() -> EmbeddingClient:
         return OpenAIEmbeddingClient()
 
     else:
-        raise ValueError(f"Unknown embedding provider: {embedding_provider}")
+        raise UnknownProviderError("embedding", embedding_provider)

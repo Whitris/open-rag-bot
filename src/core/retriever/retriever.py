@@ -29,8 +29,8 @@ class ContextRetriever:
 
         Returns:
             A list of documents ranked by relevance.
-        """
 
+        """
         embedding = self.embedding_client.encode([question])[0]
         result = self.collection.query(query_embeddings=[embedding], n_results=k)
 
@@ -39,7 +39,7 @@ class ContextRetriever:
 
         return [
             {"content": content, "metadata": metadata}
-            for content, metadata in zip(docs[0], metas[0])
+            for content, metadata in zip(docs[0], metas[0], strict=False)
         ]
 
     def _format_context(self, docs: list[dict]) -> str:
@@ -47,9 +47,7 @@ class ContextRetriever:
         formatted = []
         for i, doc in enumerate(docs, 1):
             source = (
-                doc["metadata"].get("title")
-                or doc["metadata"].get("source")
-                or f"Document {i}"
+                doc["metadata"].get("title") or doc["metadata"].get("source") or f"Document {i}"
             )
             formatted.append(f"Source: {source}\n{doc['content']}")
         return "\n\n".join(formatted)

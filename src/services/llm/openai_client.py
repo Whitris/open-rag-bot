@@ -1,12 +1,13 @@
 from openai import OpenAI
 
+from src.exceptions import MissingProviderAPIKeyError
 from src.services.llm.llm_client import LLMClient
 
 
 class OpenAIClient(LLMClient):
     def __init__(self, api_key: str):
         if not api_key:
-            raise RuntimeError("OPENAI_API_KEY not set in environment or .env")
+            raise MissingProviderAPIKeyError("OpenAI")
         self.client = OpenAI(api_key=api_key)
 
     def generate_response(self, history: list[dict], model: str) -> str:

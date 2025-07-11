@@ -11,12 +11,12 @@ class RagChatBot:
         embedding_client: EmbeddingClient,
         llm_client: LLMClient,
         retriever: ContextRetriever,
-        history: list[dict] = [],
+        history: list[dict] = None,
     ):
         self.embedding_client = embedding_client
         self.llm_client = llm_client
         self.retriever = retriever
-        self.history = history
+        self.history = history if history is not None else []
 
     def answer(self, question: str):
         self._add_to_history("user", question)
@@ -40,19 +40,20 @@ class RagChatBot:
         if len(self.history) <= 2:
             return question
 
-        last_history = [h for h in self.history if h["role"] in {"user", "assistant"}][
-            -4:
-        ]
+        last_history = [h for h in self.history if h["role"] in {"user", "assistant"}][-4:]
         conversation = ""
         for h in last_history:
             role = "User" if h["role"] == "user" else "Assistant"
             conversation += f"{role}: {h['content']}\n"
 
-        rewriting_prompt = (
-            "Rewrite the user's last question by making it complete and self-sufficient, using the following conversation history:\n"
-            f"{conversation}\n"
-            "Rewritten question:"
-        )
+        rewriting_prompt = f"""
+            Rewrite the user's last question by making it complete and self-sufficient,
+            using the following conversation history:
+
+            {conversation}
+
+            Rewritten question:
+            """
         rewritten = self.llm_client.generate_response(
             [{"role": "system", "content": rewriting_prompt}], light_llm_model
         )

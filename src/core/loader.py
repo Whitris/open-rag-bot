@@ -7,9 +7,7 @@ import pandas as pd
 from chromadb.api.models import Collection
 
 
-def load_collection(
-    path: str | Path = "chromadb", collection_name: str = "default"
-) -> Collection:
+def load_collection(path: str | Path = "chromadb", collection_name: str = "default") -> Collection:
     """Load or create a Chroma collection.
 
     Args:
@@ -18,8 +16,8 @@ def load_collection(
 
     Returns:
         The requested Chroma collection.
-    """
 
+    """
     client = chromadb.PersistentClient(path=str(path))
     return client.get_or_create_collection(name=collection_name)
 
@@ -32,7 +30,7 @@ def load_csv(path: str | Path = "stuff.csv") -> list[str]:
 
     Returns:
         A list of text chunks with any empty rows removed.
-    """
 
+    """
     data = pd.read_csv(path).dropna()
     return data.to_numpy().flatten().tolist()

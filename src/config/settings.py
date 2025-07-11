@@ -10,14 +10,10 @@ openai_api_key = os.getenv("OPENAI_API_KEY")
 embedding_provider = os.getenv("EMBEDDING_PROVIDER", "openai").lower()
 llm_provider = os.getenv("LLM_PROVIDER", "groq").lower()
 
-default_light_llm_model = (
-    "llama-3.1-8b-instant" if llm_provider == "groq" else "gpt-4.1-nano"
-)
+default_light_llm_model = "llama-3.1-8b-instant" if llm_provider == "groq" else "gpt-4.1-nano"
 light_llm_model = os.getenv("LIGHT_LLM_MODEL", default_light_llm_model).lower()
 
-default_llm_model = (
-    "llama-3.3-70b-versatile" if llm_provider == "groq" else "gpt-4.1-mini"
-)
+default_llm_model = "llama-3.3-70b-versatile" if llm_provider == "groq" else "gpt-4.1-mini"
 llm_model = os.getenv("LLM_MODEL", default_llm_model).lower()
 
 

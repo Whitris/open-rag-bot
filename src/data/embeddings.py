@@ -9,9 +9,7 @@ def load_texts_with_metadata(csv_path: str) -> list[dict]:
     return df.to_dict(orient="records")
 
 
-def generate_embeddings(
-    client: EmbeddingClient, texts: list[str], show_progress: bool = False
-):
+def generate_embeddings(client: EmbeddingClient, texts: list[str], show_progress: bool = False):
     return client.encode(texts, show_progress)
 
 

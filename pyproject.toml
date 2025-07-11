@@ -38,7 +38,12 @@ pythonpath = ["."]
 [tool.ruff]
 line-length = 100
 fix = true
-# Attiva più "select" per sicurezza, complessità, type hints, ecc.
+exclude = [
+  "build/",
+  "migrations/",
+]
+
+[tool.ruff.lint]
 select = [
   "E",      # Errori PEP8 base
   "F",      # Errori di flake8
@@ -56,16 +61,18 @@ select = [
   "SIM",    # Semplicità, semplificazione
   "PT",     # Pytest best practices
 ]
-# Escludi (ad esempio) file di migrazione o build se servono
-exclude = [
-  "build/",
-  "migrations/",
-]
-# Se vuoi ignorare errori specifici:
 ignore = [
-  "D100",   # (esempio) Ignore docstring missing on module
-  "D104",   # Ignore missing docstring in package
+  "D100",   # TODO: Add docstring to modules
+  "D101",   # TODO: Add docstring to public classes
+  "D102",   # TODO: Add docstring to public methods
+  "D103",   # TODO: Add docstring to public functions
+  "D104",   # TODO: Add docstring to packages
+  "D107",   # TODO: Add docstring to __init__
+  "D203",   # Prefer D211 (NO blank line before class)
+  "D213",   # Prefer D212 (multi-line summary on first line)
+  "S101",   # Idiomatic use of pytest assert
 ]
+
 
 
 [dependency-groups]

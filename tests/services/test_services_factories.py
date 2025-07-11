@@ -1,5 +1,6 @@
 import pytest
 
+from src.exceptions import UnknownProviderError
 from src.services import get_embedding_client, get_llm_client
 
 
@@ -23,7 +24,7 @@ def test_get_llm_client_openai(mocker):
 
 def test_get_llm_client_unknown(mocker):
     mocker.patch("src.config.settings.llm_provider", "sconosciuto")
-    with pytest.raises(ValueError) as exc:
+    with pytest.raises(UnknownProviderError, match="Unknown LLM provider:*") as exc:
         get_llm_client()
     assert "Unknown LLM provider" in str(exc.value)
 
@@ -46,6 +47,6 @@ def test_get_embedding_client_openai(mocker):
 
 def test_get_embedding_client_unknown(mocker):
     mocker.patch("src.config.settings.embedding_provider", "invalid")
-    with pytest.raises(ValueError) as exc:
+    with pytest.raises(UnknownProviderError, match="Unknown embedding provider:*") as exc:
         get_embedding_client()
     assert "Unknown embedding provider" in str(exc.value)

@@ -19,7 +19,7 @@ Ask questions about your documents and get context-aware, LLM-generated answers.
 ## Folder structure
 
 ```markdown
-open-rag-chatbot/
+open-rag-bot/
 │
 ├── src/
 │ ├── app/ # Streamlit webapp
@@ -140,7 +140,7 @@ All sensitive settings (such as API keys and provider selection) are managed via
 
 2. Edit src/config/.env to add your credentials and adjust preferences as needed.
 
-### Main variables  
+### Main variables
 | Variable             | Description                                 | Example      |
 |----------------------|---------------------------------------------|--------------|
 | OPENAI_API_KEY       | Your OpenAI API key                         | sk-...       |
@@ -149,7 +149,7 @@ All sensitive settings (such as API keys and provider selection) are managed via
 | LLM_PROVIDER         | LLM provider to use                         | openai/groq  |
 | LIGHT_LLM_MODEL      | Model name for fast/re-writing tasks        | gpt-4.1-nano |
 | LLM_MODEL            | Model name for main answer generation       | gpt-4.1      |
-| ICON_PATH            | (Optional) Path to the logo/icon for the UI | src/assets/logo.png  | 
+| ICON_PATH            | (Optional) Path to the logo/icon for the UI | src/assets/logo.png  |
 
 #### Note:
 
