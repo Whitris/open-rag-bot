@@ -1,4 +1,4 @@
-# Open RAG Chatbot
+# Open RAG Bot
 
 ![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)
 ![MIT License](https://img.shields.io/badge/license-MIT-green.svg)
@@ -31,7 +31,6 @@ open-rag-chatbot/
 ├── tests/ # Unit and integration tests
 ├── data/ # Local, non-versioned data (indexed files, outputs)
 ├── cli.py
-├── main.py
 ├── process_data.py
 ├── generate_embeddings.py
 ├── requirements.txt
