@@ -1,11 +1,30 @@
+from typing import Any
+
 import chromadb
 import pandas as pd
 
+from src.exceptions import MissingCSVColumnError
 from src.services.embedding.embedding_client import EmbeddingClient
 
 
-def load_texts_with_metadata(csv_path: str) -> list[dict]:
+def load_texts_with_metadata(csv_path: str) -> list[dict[str, Any]]:
+    """Load records from a CSV and return as a list of dicts with metadata.
+
+    Args:
+        csv_path (str): Path to CSV.
+
+    Returns:
+        List[Dict[str, Any]]: Records loaded from CSV.
+
+    Raises:
+        FileNotFoundError: If the file does not exist.
+        ValueError: If required columns are missing.
+    """
     df = pd.read_csv(csv_path)
+    required_cols = {"chunk_id", "filename", "title", "text"}
+    missing = required_cols - set(df.columns)
+    if missing:
+        raise MissingCSVColumnError(missing)
     return df.to_dict(orient="records")
 
 

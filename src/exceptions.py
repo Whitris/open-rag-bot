@@ -5,6 +5,13 @@ class CollectionError(RuntimeError):
         super().__init__("Error while loading the collection.")
 
 
+class MissingCSVColumnError(RuntimeError):
+    """Raised when one or more required columns are missing from a CSV file."""
+
+    def __init__(self, missing: set[str]):
+        super().__init__(f"Missing columns in CSV: {missing}")
+
+
 class MissingProviderAPIKeyError(RuntimeError):
     """Raised when a required provider API key is missing."""
 
