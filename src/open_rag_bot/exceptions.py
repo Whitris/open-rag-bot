@@ -1,7 +1,7 @@
 class CollectionError(RuntimeError):
     """Raised when the collection loading fails."""
 
-    def __init__(self, e: Exception):
+    def __init__(self):
         super().__init__("Error while loading the collection.")
 
 

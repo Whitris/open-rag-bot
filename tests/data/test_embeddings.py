@@ -4,13 +4,13 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from src.data.embeddings import (
+from open_rag_bot.data.embeddings import (
     add_embeddings_to_collection,
     build_or_load_collection,
     generate_embeddings,
     load_texts_with_metadata,
 )
-from src.exceptions import MissingCSVColumnError
+from open_rag_bot.exceptions import MissingCSVColumnError
 
 
 class DummyModel:

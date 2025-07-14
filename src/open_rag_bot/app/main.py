@@ -6,8 +6,8 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".
 import streamlit as st
 from PIL import Image
 
-from src.config.settings import icon_path
-from src.core.chat_bot import get_chat_bot
+from open_rag_bot.config.settings import icon_path
+from open_rag_bot.core.chat_bot import get_chat_bot
 
 st.set_page_config(layout="wide", page_title="Open Rag Bot")
 

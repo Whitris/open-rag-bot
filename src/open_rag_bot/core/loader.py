@@ -4,10 +4,12 @@ from pathlib import Path
 
 import chromadb
 import pandas as pd
-from chromadb.api.models import Collection
+from chromadb.api.models.Collection import Collection
 
 
-def load_collection(path: str | Path = "chromadb", collection_name: str = "default") -> Collection:
+def load_or_create_collection(
+    path: str | Path = "chromadb", collection_name: str = "default"
+) -> Collection:
     """Load or create a Chroma collection.
 
     Args:

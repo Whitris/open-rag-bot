@@ -2,7 +2,7 @@ import fitz
 import pikepdf
 import pytest
 
-from src.data.pdf import (
+from open_rag_bot.data.pdf import (
     clean_pdf,
     clean_pdf_with_mupdf,
     ensure_dir,
@@ -43,7 +43,7 @@ def test_clean_pdf_fallback(sample_pdf, tmp_path, mocker):
     import pikepdf
 
     mocker.patch(
-        "src.data.pdf.clean_pdf_with_pikepdf",
+        "open_rag_bot.data.pdf.clean_pdf_with_pikepdf",
         side_effect=pikepdf.PdfError("pikepdf fail"),
     )
     out = tmp_path / "test_new.pdf"

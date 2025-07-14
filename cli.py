@@ -2,8 +2,8 @@ import logging
 
 import typer
 
-from src.core.chat_bot import get_chat_bot
-from src.core.logging_config import setup_logging
+from open_rag_bot.core.chat_bot import get_chat_bot
+from open_rag_bot.core.logging_config import setup_logging
 
 setup_logging(level=logging.INFO, log_to_file=True, file_path="open_rag_bot.log")
 logger = logging.getLogger(__name__)
@@ -13,12 +13,15 @@ app = typer.Typer(help="RAG Chatbot CLI")
 
 @app.command()
 def chat(
-    verbose: bool = typer.Option(False, "--verbose", "-v", help="Enable verbose (DEBUG) logging"),
+    verbose: bool = typer.Option(
+        False, "--verbose", "-v", help="Enable verbose (DEBUG) logging"
+    ),
 ):
     """Interactive chatbot session in the terminal."""
     if verbose:
-        # Puoi rifare setup_logging per abilitare DEBUG in log file
-        setup_logging(level=logging.DEBUG, log_to_file=True, file_path="rag_chatbot.log")
+        setup_logging(
+            level=logging.DEBUG, log_to_file=True, file_path="rag_chatbot.log"
+        )
         logger.debug("Verbose logging enabled.")
 
     history = [

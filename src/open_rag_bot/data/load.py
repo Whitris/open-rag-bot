@@ -4,10 +4,10 @@ from pathlib import Path
 
 from tqdm import tqdm
 
-from src.data.docx import extract_text_from_docx
-from src.data.pdf import extract_text_from_pdf
-from src.data.txt import extract_text_from_txt
-from src.data.utils import split_text_into_chunks
+from open_rag_bot.data.docx import extract_text_from_docx
+from open_rag_bot.data.pdf import extract_text_from_pdf
+from open_rag_bot.data.txt import extract_text_from_txt
+from open_rag_bot.data.utils import split_text_into_chunks
 
 extractors: dict[str, Callable[[str], str]] = {
     ".pdf": extract_text_from_pdf,
@@ -27,7 +27,9 @@ def get_all_files(root_dir: str, extensions=None) -> list[str]:
     ]
 
 
-def process_files(file_paths: list[str], chunk_size: int = 500, max_files: int = -1) -> list[dict]:
+def process_files(
+    file_paths: list[str], chunk_size: int = 500, max_files: int = -1
+) -> list[dict]:
     processed_chunks = []
     for i, path in tqdm(
         enumerate(file_paths[:max_files]),

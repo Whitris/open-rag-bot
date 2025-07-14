@@ -1,7 +1,7 @@
 import docx
 import pytest
 
-from src.data.docx import extract_text_from_docx
+from open_rag_bot.data.docx import extract_text_from_docx
 
 
 @pytest.fixture

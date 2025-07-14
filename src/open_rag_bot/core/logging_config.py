@@ -3,7 +3,9 @@ import sys
 
 
 def setup_logging(
-    level: int = logging.INFO, log_to_file: bool = False, file_path: str | None = "app.log"
+    level: int = logging.INFO,
+    log_to_file: bool = False,
+    file_path: str | None = "app.log",
 ):
     """Set up global logging configuration."""
     handlers = []

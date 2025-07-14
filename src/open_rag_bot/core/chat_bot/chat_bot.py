@@ -1,8 +1,8 @@
-from src.config.settings import light_llm_model, llm_model
-from src.core.prompt import build_prompt
-from src.core.retriever.retriever import ContextRetriever
-from src.services.embedding.embedding_client import EmbeddingClient
-from src.services.llm.llm_client import LLMClient
+from open_rag_bot.config.settings import light_llm_model, llm_model
+from open_rag_bot.core.prompt import build_prompt
+from open_rag_bot.core.retriever.retriever import ContextRetriever
+from open_rag_bot.services.embedding.embedding_client import EmbeddingClient
+from open_rag_bot.services.llm.llm_client import LLMClient
 
 
 class RagChatBot:
@@ -40,7 +40,9 @@ class RagChatBot:
         if len(self.history) <= 2:
             return question
 
-        last_history = [h for h in self.history if h["role"] in {"user", "assistant"}][-4:]
+        last_history = [h for h in self.history if h["role"] in {"user", "assistant"}][
+            -4:
+        ]
         conversation = ""
         for h in last_history:
             role = "User" if h["role"] == "user" else "Assistant"

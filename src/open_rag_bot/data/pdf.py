@@ -6,7 +6,7 @@ import fitz
 import pikepdf
 from pdfminer.high_level import extract_text
 
-from src.data.utils import ensure_dir
+from open_rag_bot.data.utils import ensure_dir
 
 logger = logging.getLogger(__name__)
 

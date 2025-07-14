@@ -4,8 +4,9 @@ from time import perf_counter
 
 import typer
 
-from src.data.load import get_all_files, process_files
-from src.data.save import save_chunks_to_csv
+from open_rag_bot.config.settings import csv_path
+from open_rag_bot.data.load import get_all_files, process_files
+from open_rag_bot.data.save import save_chunks_to_csv
 
 app = typer.Typer()
 
@@ -13,13 +14,16 @@ app = typer.Typer()
 @app.command()
 def process(
     input_dir: str = typer.Argument(..., help="Directory di input con i documenti"),
-    output_csv: str = typer.Argument(..., help="Percorso file CSV di output"),
     chunk_size: int = typer.Option(500, help="Dimensione chunk in caratteri"),
     max_files: int = typer.Option(-1, help="Numero massimo di file da processare"),
-    formats: str = typer.Option("pdf,txt,docx", help="Formati da processare, separati da virgola"),
+    formats: str = typer.Option(
+        "pdf,txt,docx", help="Formati da processare, separati da virgola"
+    ),
 ):
     """Extract text from documents (pdf, txt, docx) and save chunks to a CSV for RAG."""
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
+    logging.basicConfig(
+        level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s"
+    )
     input_path = Path(input_dir)
     if not input_path.is_dir():
         typer.echo(f"Errore: Cartella {input_dir} non trovata.", err=True)
@@ -34,7 +38,8 @@ def process(
 
     logging.info(f"Trovati {len(file_paths)} file da processare")
     chunks = process_files(file_paths, chunk_size=chunk_size, max_files=max_files)
-    save_chunks_to_csv(chunks, output_csv)
+    csv_path.parent.mkdir(parents=True, exist_ok=True)
+    save_chunks_to_csv(chunks, csv_path)
     logging.info(
         f"Completato: {len(file_paths)} file, {len(chunks)} chunk, {perf_counter() - start:.2f} s"
     )

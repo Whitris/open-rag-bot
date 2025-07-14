@@ -3,8 +3,8 @@ from typing import Any
 import chromadb
 import pandas as pd
 
-from src.exceptions import MissingCSVColumnError
-from src.services.embedding.embedding_client import EmbeddingClient
+from open_rag_bot.exceptions import MissingCSVColumnError
+from open_rag_bot.services.embedding.embedding_client import EmbeddingClient
 
 
 def load_texts_with_metadata(csv_path: str) -> list[dict[str, Any]]:
@@ -28,7 +28,9 @@ def load_texts_with_metadata(csv_path: str) -> list[dict[str, Any]]:
     return df.to_dict(orient="records")
 
 
-def generate_embeddings(client: EmbeddingClient, texts: list[str], show_progress: bool = False):
+def generate_embeddings(
+    client: EmbeddingClient, texts: list[str], show_progress: bool = False
+):
     return client.encode(texts, show_progress)
 
 
