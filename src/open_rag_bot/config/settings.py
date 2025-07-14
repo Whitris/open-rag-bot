@@ -29,4 +29,6 @@ csv_path = processed_dir / "stuff.csv"
 collection_dir = Path(os.getenv("COLLECTION_DIR", "data"))
 collection_name = os.getenv("COLLECTION_NAME", "default")
 
-icon_path = Path(os.getenv("ICON_PATH"))
+icon_path = os.getenv("ICON_PATH")
+if icon_path is not None:
+    icon_path = Path(os.getenv("ICON_PATH"))
