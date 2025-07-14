@@ -21,10 +21,8 @@ default_llm_model = (
 )
 llm_model = os.getenv("LLM_MODEL", default_llm_model).lower()
 
-data_dir = Path(os.getenv("DATA_DIR"))
-# input_dir = Path(os.getenv("INPUT_DIR"))
+data_dir = Path(os.getenv("DATA_DIR", "data"))
 processed_dir = data_dir / "processed"
-# index_dir = data_dir / "index"
 
 csv_path = processed_dir / "stuff.csv"
 
