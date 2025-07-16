@@ -1,6 +1,6 @@
 # Open RAG Bot
 
-![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)
+![Python versions](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)
 ![MIT License](https://img.shields.io/badge/license-MIT-green.svg)
 ![CI](https://github.com/Whitris/open-rag-bot/actions/workflows/ci.yml/badge.svg)
 
