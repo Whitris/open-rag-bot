@@ -1,85 +1,25 @@
 [project]
-name = "open-rag-chatbot"
+name = "open_rag_bot"
 version = "0.1.0"
-description = "Default template for PDM package"
+description = "Modular Retrieval-Augmented Generation (RAG) chatbot"
 authors = [
-    {name = "Nicola Marcantognini", email = "nicola.marcantognini@outlook.com"},
+    {name = "Whitris", email = "nicola.marcantognini@outlook.com"},
 ]
-dependencies = [
-    "streamlit>=1.46.1",
-    "pillow>=11.3.0",
-    "python-dotenv>=1.1.1",
-    "chromadb>=0.4.24",
-    "pandas>=2.3.1",
-    "numpy>=2.3.1",
-    "PyMuPDF>=1.26.3",
-    "pdfminer-six>=20250506",
-    "tqdm>=4.67.1",
-    "pikepdf>=9.9.0",
-    "groq>=0.29.0",
-    "openai>=1.93.2",
-    "typer>=0.16.0",
-    "python-docx>=1.2.0",
-]
-requires-python = "==3.12.*"
+dependencies = ["streamlit>=1.46.1", "pillow>=11.3.0", "python-dotenv>=1.1.1", "chromadb>=1.0.15", "pandas>=2.3.1", "tqdm>=4.67.1", "pikepdf>=9.10.0", "PyMuPDF>=1.26.3", "groq>=0.30.0", "openai>=1.95.1", "pdfminer-six>=20250506", "python-docx>=1.2.0", "pydantic-settings>=2.10.1"]
+requires-python = ">=3.12"
 readme = "README.md"
 license = {text = "MIT"}
 
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
 
 [tool.pdm]
-distribution = false
-
-[tool.pdm.build]
-package-dir = "src"
-
-[tool.pytest.ini_options]
-pythonpath = ["."]
-
-[tool.ruff]
-line-length = 100
-fix = true
-exclude = [
-  "build/",
-  "migrations/",
-]
-
-[tool.ruff.pydocstyle]
-convention = "google"
-
-[tool.ruff.lint]
-select = [
-  "E",      # Base PEP8 errors
-  "F",      # Flake8 errors
-  "B",      # Bugbear: common coding mistakes
-  "I",      # Import sorting
-  "C90",    # Code complexity (McCabe)
-  "T",      # Type annotations
-  "N",      # Naming conventions
-  "S",      # Security issues (bandit)
-  "D",      # Docstring style and completeness
-  "UP",     # Python version upgrade suggestions
-  "A",      # Built-in name shadowing
-  "ASYNC",  # Async-related issues
-  "TRY",    # Try/except best practices
-  "SIM",    # Code simplification opportunities
-  "PT",     # Pytest best practices
-]
-ignore = [
-  "D100",   # TODO: Add docstring to modules
-  "D101",   # TODO: Add docstring to public classes
-  "D102",   # TODO: Add docstring to public methods
-  "D103",   # TODO: Add docstring to public functions
-  "D104",   # TODO: Add docstring to packages
-  "D107",   # TODO: Add docstring to __init__
-  "D203",   # Prefer D211 (NO blank line before class)
-  "D213",   # Prefer D212 (multi-line summary on first line)
-  "S101",   # Idiomatic use of pytest assert
-]
-
+distribution = true
 
 [dependency-groups]
 dev = [
     "pytest>=8.4.1",
     "pytest-mock>=3.14.1",
-    "ruff>=0.12.2",
+    "ruff>=0.12.3",
 ]

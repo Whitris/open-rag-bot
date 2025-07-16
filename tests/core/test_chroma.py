@@ -2,17 +2,25 @@ import chromadb
 import numpy as np
 import pytest
 
-from src.core.loader import load_collection
-from src.core.retriever import get_context_retriever
+from open_rag_bot.config.settings import get_settings
+from open_rag_bot.core.loader import load_or_create_collection
+from open_rag_bot.core.retriever import get_context_retriever
 
 
 @pytest.fixture
-def retriever():
-    return get_context_retriever()
+def settings():
+    return get_settings()
+
+
+@pytest.fixture
+def retriever(settings):
+    return get_context_retriever(
+        settings.app.collection_dir, settings.app.collection_name
+    )
 
 
 def test_load_index_returns_collection(tmp_path):
-    collection = load_collection(tmp_path, collection_name="test")
+    collection = load_or_create_collection(tmp_path, collection_name="test")
     assert collection.name == "test"
 
 

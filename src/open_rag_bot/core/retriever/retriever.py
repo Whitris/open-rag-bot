@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from chromadb.api.models import Collection
 
-from src.services.embedding.embedding_client import EmbeddingClient
+from open_rag_bot.services.embedding.embedding_client import EmbeddingClient
 
 
 class ContextRetriever:
@@ -47,7 +47,9 @@ class ContextRetriever:
         formatted = []
         for i, doc in enumerate(docs, 1):
             source = (
-                doc["metadata"].get("title") or doc["metadata"].get("source") or f"Document {i}"
+                doc["metadata"].get("title")
+                or doc["metadata"].get("source")
+                or f"Document {i}"
             )
             formatted.append(f"Source: {source}\n{doc['content']}")
         return "\n\n".join(formatted)

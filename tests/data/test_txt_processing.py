@@ -1,6 +1,6 @@
 import pytest
 
-from src.data.txt import extract_text_from_txt
+from open_rag_bot.data.txt import extract_text_from_txt
 
 
 @pytest.fixture

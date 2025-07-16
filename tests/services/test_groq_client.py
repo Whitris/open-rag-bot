@@ -1,4 +1,4 @@
-from src.services.llm.groq_client import GroqClient
+from open_rag_bot.services.llm.groq_client import GroqClient
 
 
 def test_generate_response_calls_create(mocker):

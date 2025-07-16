@@ -1,8 +1,22 @@
 class CollectionError(RuntimeError):
     """Raised when the collection loading fails."""
 
-    def __init__(self, e: Exception):
+    def __init__(self):
         super().__init__("Error while loading the collection.")
+
+
+class MissingCSVColumnError(RuntimeError):
+    """Raised when one or more required columns are missing from a CSV file."""
+
+    def __init__(self, missing: set[str]):
+        super().__init__(f"Missing columns in CSV: {missing}")
+
+
+class MissingEnvironmentVariable(RuntimeError):
+    """Raised when a required envinroment variable is missing."""
+
+    def __init__(self, var_name: str):
+        super().__init__(f"{var_name} not set in environment or .env")
 
 
 class MissingProviderAPIKeyError(RuntimeError):

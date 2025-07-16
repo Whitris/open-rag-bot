@@ -1,7 +1,7 @@
 from groq import Groq
 
-from src.exceptions import MissingProviderAPIKeyError
-from src.services.llm.llm_client import LLMClient
+from open_rag_bot.exceptions import MissingProviderAPIKeyError
+from open_rag_bot.services.llm.llm_client import LLMClient
 
 
 class GroqClient(LLMClient):

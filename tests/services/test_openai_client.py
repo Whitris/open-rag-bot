@@ -1,4 +1,4 @@
-from src.services.llm.openai_client import OpenAIClient
+from open_rag_bot.services.llm.openai_client import OpenAIClient
 
 
 def test_generate_response_calls_create(mocker):

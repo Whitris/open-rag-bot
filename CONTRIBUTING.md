@@ -1,7 +1,11 @@
 # Contributing to Open RAG Bot
 
+![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)
+
 Thanks for your interest in contributing!
-This guide outlines the steps to contribute code, documentation, or ideas to Open RAG Bot.
+See [README.md](./README.md) for project overview.
+
+This guide outlines the steps to contribute code, documentation, or ideas.
 
 ## Getting Started
 
@@ -13,7 +17,7 @@ This guide outlines the steps to contribute code, documentation, or ideas to Ope
    ```
 3. Copy and configure environment variables:
    ```bash
-   cp src/config/.env.example src/config/.env
+   cp ./.env.example ./.env
    # Add your API keys
    ```
 
@@ -64,7 +68,7 @@ pdm run pre-commit run --all-files
 
 1. Create a new branch for your change:
    ```bash
-   pre-commit run --all-files
+   git checkout -b <feature-or-fix-branch>
    ```
 2. Make your changes and commit with a clear message:
    ```bash
@@ -74,6 +78,15 @@ pdm run pre-commit run --all-files
    - Include a description of your changes
    - Link related issues if applicable
    - If it's a draft, mark it as such
+
+## Pull Request Checklist
+
+- [ ] All tests pass (`pdm run pytest`)
+- [ ] Code is formatted and lints cleanly (`pdm run ruff check/format src/ tests/`)
+- [ ] Pre-commit hooks have been run (`pdm run pre-commit run --all-files`)
+- [ ] Relevant docstrings and comments updated
+- [ ] README or docs updated if needed
+
 
 ## Types of Contributions
 
@@ -87,7 +100,7 @@ You're welcome to contribute:
 - Support for new LLM/embedding providers
 - Translations (web UI)
 
-# Communication
+# Communication & Support
 
 - For questions or guidance, open a [GitHub Discussion](https://github.com/whitris/open-rag-bot/discussions) or issue.
 - If you're working on a specific issue, feel free to comment and ask for clarification.

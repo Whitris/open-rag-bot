@@ -4,14 +4,13 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from src.data.embeddings import (
+from open_rag_bot.data.embeddings import (
     add_embeddings_to_collection,
     build_or_load_collection,
     generate_embeddings,
     load_texts_with_metadata,
 )
-
-# TODO: Ricontrollare
+from open_rag_bot.exceptions import MissingCSVColumnError
 
 
 class DummyModel:
@@ -120,3 +119,12 @@ def test_end_to_end(tmp_path, n_texts, n_dim):
     got = coll.get(ids=[ids[0]])
     assert got["metadatas"][0]["filename"] == metadatas[0]["filename"]
     assert got["documents"][0] == texts[0]
+
+
+def test_load_texts_with_missing_columns(tmp_path):
+    """Should raise MissingCSVColumnError if CSV lacks required columns."""
+    df = pd.DataFrame([{"foo": 1, "bar": 2}])
+    csv_path = tmp_path / "bad.csv"
+    df.to_csv(csv_path, index=False)
+    with pytest.raises(MissingCSVColumnError):
+        load_texts_with_metadata(str(csv_path))
