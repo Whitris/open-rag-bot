@@ -6,6 +6,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      OPENAI_API_KEY: FAKE
+      GROQ_API_KEY: FAKE
+      EMBEDDING_PROVIDER: openai
+      LLM_PROVIDER: groq
+      COLLECTION_DIR: tests/test_data
+      COLLECTION_NAME: test_collection
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
