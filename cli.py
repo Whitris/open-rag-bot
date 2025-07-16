@@ -2,6 +2,7 @@ import logging
 
 import typer
 
+from open_rag_bot.config.settings import get_settings
 from open_rag_bot.core.chat_bot import get_chat_bot
 from open_rag_bot.core.logging_config import setup_logging
 
@@ -10,9 +11,17 @@ logger = logging.getLogger(__name__)
 
 app = typer.Typer(help="RAG Chatbot CLI")
 
+settings = get_settings()
+
 
 @app.command()
 def chat(
+    collection_dir: str = typer.Option(
+        settings.app.collection_dir, help="Input collection directory"
+    ),
+    collection_name: str = typer.Option(
+        settings.app.collection_name, help="Input collection name"
+    ),
     verbose: bool = typer.Option(
         False, "--verbose", "-v", help="Enable verbose (DEBUG) logging"
     ),
@@ -20,7 +29,7 @@ def chat(
     """Interactive chatbot session in the terminal."""
     if verbose:
         setup_logging(
-            level=logging.DEBUG, log_to_file=True, file_path="rag_chatbot.log"
+            level=logging.DEBUG, log_to_file=True, file_path="open_rag_bot.log"
         )
         logger.debug("Verbose logging enabled.")
 
@@ -30,7 +39,7 @@ def chat(
             "content": "You are a virtual assistant. Always answer in the question language.",
         }
     ]
-    chat_bot = get_chat_bot(history)
+    chat_bot = get_chat_bot(collection_dir, collection_name, history)
     typer.echo("Chatbot started. Type your question ('exit' to exit).")
 
     while True:

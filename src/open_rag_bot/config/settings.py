@@ -1,34 +1,99 @@
-import os
 from pathlib import Path
 
 from dotenv import load_dotenv
+from pydantic import Field
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
-env_path = Path(__file__).resolve().parent / ".env"
-load_dotenv(env_path, override=True)
+from open_rag_bot.exceptions import MissingProviderAPIKeyError, UnknownProviderError
 
-groq_api_key = os.getenv("GROQ_API_KEY")
-openai_api_key = os.getenv("OPENAI_API_KEY")
-embedding_provider = os.getenv("EMBEDDING_PROVIDER", "openai").lower()
-llm_provider = os.getenv("LLM_PROVIDER", "groq").lower()
 
-default_light_llm_model = (
-    "llama-3.1-8b-instant" if llm_provider == "groq" else "gpt-4.1-nano"
-)
-light_llm_model = os.getenv("LIGHT_LLM_MODEL", default_light_llm_model).lower()
+load_dotenv(".env", override=True)
 
-default_llm_model = (
-    "llama-3.3-70b-versatile" if llm_provider == "groq" else "gpt-4.1-mini"
-)
-llm_model = os.getenv("LLM_MODEL", default_llm_model).lower()
 
-data_dir = Path(os.getenv("DATA_DIR", "data"))
-processed_dir = data_dir / "processed"
+class ApiKeysSettings(BaseSettings):
+    groq_api_key: str | None = Field(default=None, description="Groq API key")
+    openai_api_key: str | None = Field(default=None, description="OpenAI API key")
 
-csv_path = processed_dir / "stuff.csv"
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore",
+    )
 
-collection_dir = Path(os.getenv("COLLECTION_DIR", "data"))
-collection_name = os.getenv("COLLECTION_NAME", "default")
+    @property
+    def groq(self) -> str:
+        if not self.groq_api_key:
+            raise MissingProviderAPIKeyError("groq")
+        return self.groq_api_key
 
-icon_path = os.getenv("ICON_PATH")
-if icon_path is not None:
-    icon_path = Path(os.getenv("ICON_PATH"))
+    @property
+    def openai(self) -> str:
+        if not self.openai_api_key:
+            raise MissingProviderAPIKeyError("openai")
+        return self.openai_api_key
+
+
+class AppSettings(BaseSettings):
+    embedding_provider: str = "openai"
+    llm_provider: str = "groq"
+    light_llm_model: str | None = None
+    llm_model: str | None = None
+    collection_dir: Path = Field(..., description="Directory for the Chroma index")
+    collection_name: str = Field(..., description="Name for the Chroma collection")
+    icon_path: Path | None = None
+
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore",
+    )
+
+    @property
+    def embedding_provider_validated(self) -> str:
+        p = self.embedding_provider.lower()
+        if p not in ("openai", "groq"):
+            raise UnknownProviderError("embedding", p)
+        return p
+
+    @property
+    def llm_provider_validated(self) -> str:
+        p = self.llm_provider.lower()
+        if p not in ("openai", "groq"):
+            raise UnknownProviderError("llm", p)
+        return p
+
+    @property
+    def light_llm_model_effective(self) -> str:
+        if self.light_llm_model:
+            return self.light_llm_model
+        return (
+            "llama-3.1-8b-instant"
+            if self.llm_provider_validated == "groq"
+            else "gpt-4.1-nano"
+        )
+
+    @property
+    def llm_model_effective(self) -> str:
+        if self.llm_model:
+            return self.llm_model
+        return (
+            "llama-3.3-70b-versatile"
+            if self.llm_provider_validated == "groq"
+            else "gpt-4.1-mini"
+        )
+
+
+class Settings:
+    def __init__(self):
+        self.api = ApiKeysSettings()
+        self.app = AppSettings()
+
+
+_settings: Settings | None = None
+
+
+def get_settings() -> Settings:
+    global _settings
+    if _settings is None:
+        _settings = Settings()
+    return _settings

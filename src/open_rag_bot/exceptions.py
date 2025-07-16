@@ -12,6 +12,13 @@ class MissingCSVColumnError(RuntimeError):
         super().__init__(f"Missing columns in CSV: {missing}")
 
 
+class MissingEnvironmentVariable(RuntimeError):
+    """Raised when a required envinroment variable is missing."""
+
+    def __init__(self, var_name: str):
+        super().__init__(f"{var_name} not set in environment or .env")
+
+
 class MissingProviderAPIKeyError(RuntimeError):
     """Raised when a required provider API key is missing."""
 

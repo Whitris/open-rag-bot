@@ -1,8 +1,11 @@
-from open_rag_bot.config.settings import light_llm_model, llm_model
+from open_rag_bot.config.settings import get_settings
 from open_rag_bot.core.prompt import build_prompt
 from open_rag_bot.core.retriever.retriever import ContextRetriever
 from open_rag_bot.services.embedding.embedding_client import EmbeddingClient
 from open_rag_bot.services.llm.llm_client import LLMClient
+
+
+settings = get_settings()
 
 
 class RagChatBot:
@@ -27,7 +30,9 @@ class RagChatBot:
 
         self._add_to_history("system", prompt)
 
-        response = self.llm_client.generate_response(self.history, llm_model)
+        response = self.llm_client.generate_response(
+            self.history, settings.app.llm_model_effective
+        )
 
         self._add_to_history("assistant", response)
 
@@ -57,7 +62,8 @@ class RagChatBot:
             Rewritten question:
             """
         rewritten = self.llm_client.generate_response(
-            [{"role": "system", "content": rewriting_prompt}], light_llm_model
+            [{"role": "system", "content": rewriting_prompt}],
+            settings.app.light_llm_model_effective,
         )
 
         return rewritten.strip()

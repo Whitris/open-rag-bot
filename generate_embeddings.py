@@ -1,6 +1,7 @@
+from pathlib import Path
 import typer
 
-from open_rag_bot.config.settings import collection_dir, collection_name, csv_path
+from open_rag_bot.config.settings import get_settings
 from open_rag_bot.data.embeddings import (
     add_embeddings_to_collection,
     build_or_load_collection,
@@ -11,12 +12,23 @@ from open_rag_bot.services import get_embedding_client
 
 app = typer.Typer()
 
+settings = get_settings()
+
 
 @app.command()
 def generate(
-    csv_path: str = typer.Argument(csv_path, help="Path to CSV file with text data"),
+    csv_path: str = typer.Argument(..., help="Path to CSV file with text data"),
+    collection_dir: str = typer.Option(
+        settings.app.collection_dir, help="Output collection directory"
+    ),
+    collection_name: str = typer.Option(
+        settings.app.collection_name, help="Output collection name"
+    ),
 ):
     """Generate and store embeddings to Chroma vector DB."""
+    csv_path = Path(csv_path)
+    collection_dir = Path(collection_dir)
+
     entries = load_texts_with_metadata(csv_path)
     texts = [e["text"] for e in entries]
     metadatas = [

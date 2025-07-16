@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Any
 
 import chromadb
@@ -7,7 +8,7 @@ from open_rag_bot.exceptions import MissingCSVColumnError
 from open_rag_bot.services.embedding.embedding_client import EmbeddingClient
 
 
-def load_texts_with_metadata(csv_path: str) -> list[dict[str, Any]]:
+def load_texts_with_metadata(csv_path: Path) -> list[dict[str, Any]]:
     """Load records from a CSV and return as a list of dicts with metadata.
 
     Args:

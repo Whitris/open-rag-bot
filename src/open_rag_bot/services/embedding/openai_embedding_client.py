@@ -1,14 +1,17 @@
 from openai import OpenAI
 from tqdm import tqdm
 
-from open_rag_bot.config.settings import openai_api_key
+from open_rag_bot.config.settings import get_settings
 from open_rag_bot.exceptions import MissingProviderAPIKeyError
 from open_rag_bot.services.embedding.embedding_client import EmbeddingClient
 
 
+settings = get_settings()
+
+
 class OpenAIEmbeddingClient(EmbeddingClient):
     def __init__(
-        self, api_key: str = openai_api_key, model: str = "text-embedding-3-small"
+        self, api_key: str = settings.api.openai, model: str = "text-embedding-3-small"
     ):
         if not api_key:
             raise MissingProviderAPIKeyError("OpenAI")
