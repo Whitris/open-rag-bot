@@ -3,19 +3,15 @@ import pytest
 from open_rag_bot.config.settings import Settings
 from open_rag_bot.exceptions import UnknownProviderError
 from open_rag_bot.services import get_embedding_client, get_llm_client
-from open_rag_bot.services.embedding.groq_embedding_client import (
-    GroqEmbeddingClient,
-)
 from open_rag_bot.services.embedding.openai_embedding_client import (
     OpenAIEmbeddingClient,
 )
-from open_rag_bot.services.llm.groq_client import GroqClient
 from open_rag_bot.services.llm.openai_client import OpenAIClient
 
 
 @pytest.fixture
 def settings_factory(monkeypatch):
-    def _make(env: dict = None):
+    def _factory(env: dict = None):
         base_env = {
             "COLLECTION_DIR": "tests/test_data",
             "COLLECTION_NAME": "test_collection",
@@ -26,19 +22,7 @@ def settings_factory(monkeypatch):
             monkeypatch.setenv(key, val)
         return Settings()
 
-    return _make
-
-
-def test_get_llm_client_groq(settings_factory):
-    s = settings_factory(
-        {
-            "LLM_PROVIDER": "groq",
-            "GROQ_API_KEY": "FAKE",
-        }
-    )
-
-    client = get_llm_client(settings=s)
-    assert isinstance(client, GroqClient)
+    return _factory
 
 
 def test_get_llm_client_openai(settings_factory):
@@ -62,18 +46,6 @@ def test_get_llm_client_unknown(settings_factory):
 
     with pytest.raises(UnknownProviderError, match="Unknown llm provider:*"):
         get_llm_client(settings=s)
-
-
-def test_get_embedding_client_groq(settings_factory):
-    s = settings_factory(
-        {
-            "EMBEDDING_PROVIDER": "groq",
-            "GROQ_API_KEY": "FAKE",
-        }
-    )
-
-    client = get_embedding_client(settings=s)
-    assert isinstance(client, GroqEmbeddingClient)
 
 
 def test_get_embedding_client_openai(settings_factory):

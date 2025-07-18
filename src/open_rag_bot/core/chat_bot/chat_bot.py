@@ -31,7 +31,7 @@ class RagChatBot:
         self._add_to_history("system", prompt)
 
         response = self.llm_client.generate_response(
-            self.history, settings.app.llm_model_effective
+            self.history, settings.app.llm_model
         )
 
         self._add_to_history("assistant", response)
@@ -63,7 +63,7 @@ class RagChatBot:
             """
         rewritten = self.llm_client.generate_response(
             [{"role": "system", "content": rewriting_prompt}],
-            settings.app.light_llm_model_effective,
+            settings.app.small_llm_model,
         )
 
         return rewritten.strip()
