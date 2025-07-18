@@ -9,7 +9,6 @@ Open RAG Bot is a modular framework for building document-aware chatbots powered
 ## Features
 
 - **Retrieval-Augmented Generation (RAG):** Answers are grounded in your own documents, not just LLM training data.
-- **Modular design:** Switch between different LLM and embedding providers (OpenAI, Groq, etc.) with a single config change.
 - **Flexible document ingestion:** Easily add your PDFs, DOCX, or text files to the knowledge base.
 - **Fast search:** Uses [ChromaDB](https://www.trychroma.com/) for efficient vector search and retrieval with metadata support.
 - **Two interfaces:** Use from the command line (CLI) or via a modern Streamlit webapp.
@@ -26,7 +25,7 @@ open-rag-bot/
 │       ├── config/      # Settings, .env, config files
 │       ├── core/        # Core logic: retrieval, prompt, chatbot
 │       ├── data/        # Data processing scripts and utilities
-│       └── services/    # LLM & embedding clients (OpenAI, Groq, etc)
+│       └── services/    # LLM & embedding clients
 │
 ├── tests/               # Unit and integration tests
 ├── data/                # Local, non-versioned data (indexed files, outputs)
@@ -163,29 +162,30 @@ All sensitive settings (such as API keys and provider selection) are managed via
 | Variable             | Description                                 | Example       |
 |----------------------|---------------------------------------------|-------------- |
 | OPENAI_API_KEY       | Your OpenAI API key                         | sk-...        |
-| GROQ_API_KEY         | Your Groq API key                           | gsk_...       |
-| EMBEDDING_PROVIDER   | Embedding provider to use                   | openai/groq   |
-| LLM_PROVIDER         | LLM provider to use                         | openai/groq   |
-| LIGHT_LLM_MODEL      | Model name for fast/re-writing tasks        | gpt-4.1-nano  |
+| EMBEDDING_PROVIDER   | Embedding provider to use                   | openai        |
+| EMBEDDING_MODEL      | Model name for embedding tasks              | text-embedding-3-large  |
+| LLM_PROVIDER         | LLM provider to use                         | openai        |
+| SMALL_LLM_MODEL      | Model name for fast/re-writing tasks        | gpt-4.1-nano  |
 | LLM_MODEL            | Model name for main answer generation       | gpt-4.1       |
 | COLLECTION_DIR       | Directory for the Chroma index              | data/index    |
 | COLLECTION_NAME      | Name for the Chroma collection              | my_collection |
-| ICON_PATH            | (Optional) Path to the icon for the UI      | src/assets/logo.png |
 
 #### Note:
 
-- If a provider (Groq or OpenAI) is selected, the corresponding API key must be set. The application will fail if the required key is missing.
+- If a provider is selected, the corresponding API key must be set. The application will fail if the required key is missing.
 - If you do not specify a model, the code will select a default based on the chosen provider.
 
 ### Example
 
 ```env
 OPENAI_API_KEY=sk-...
-GROQ_API_KEY=gsk_...
 EMBEDDING_PROVIDER=openai
-LLM_PROVIDER=groq
-COLLECTION_DIR=data/index
-COLLECTION_NAME=my_collection
+EMBEDDING_MODEL=text-embedding-3-large
+LLM_PROVIDER=openai
+SMALL_LLM_MODEL=gpt-4.1-nano
+LLM_MODEL=gpt-4.1-mini
+COLLECTION_DIR=data/collection
+COLLECTION_NAME=default
 ```
 
 ## Test and development
@@ -281,7 +281,7 @@ This project makes use of:
 - [Streamlit](https://streamlit.io/) for the web interface
 - [ChromaDB](https://www.trychroma.com/) for vector search and storage
 - [Typer](https://typer.tiangolo.com/) for the CLI
-- [OpenAI](https://platform.openai.com/) and [Groq](https://console.groq.com/) APIs for LLM and embeddings
+- [OpenAI](https://platform.openai.com/) APIs for LLM and embeddings
 
 ## FAQ & Troubleshooting
 
