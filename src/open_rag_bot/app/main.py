@@ -4,7 +4,6 @@ import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 
 import streamlit as st
-from PIL import Image
 
 from open_rag_bot.config.settings import get_settings
 from open_rag_bot.core.chat_bot import get_chat_bot
@@ -14,14 +13,9 @@ settings = get_settings()
 
 st.set_page_config(layout="wide", page_title="Open Rag Bot")
 
-col1, col2, col3 = st.columns([4, 4, 4])
+col1, _ = st.columns([4, 8])
 with col1:
     st.title("Open Rag Bot")
-with col3:
-    if settings.app.icon_path is not None:
-        st.image(Image.open(settings.app.icon_path), width=200)
-    else:
-        st.text("")
 
 if "history" not in st.session_state:
     st.session_state.history = [

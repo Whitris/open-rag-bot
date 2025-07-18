@@ -5,7 +5,7 @@
 groups = ["default", "dev"]
 strategy = ["inherit_metadata"]
 lock_version = "4.5.0"
-content_hash = "sha256:623b860a501a9d4564c3e00eb65c9d958ef21dd019afe41835ba0910d7f1b3cc"
+content_hash = "sha256:f324dc452a41b249cb6526fd9f5c71e73ace3daa8b2fa9d9da28b2c6ec6ba8c1"
 
 [[metadata.targets]]
 requires_python = ">=3.12"
@@ -524,25 +524,6 @@ dependencies = [
 files = [
     {file = "googleapis_common_protos-1.70.0-py3-none-any.whl", hash = "sha256:b8bfcca8c25a2bb253e0e0b0adaf8c00773e5e6af6fd92397576680b807e0fd8"},
     {file = "googleapis_common_protos-1.70.0.tar.gz", hash = "sha256:0e1b44e0ea153e6594f9f394fef15193a68aaaea2d843f83e2742717ca753257"},
-]
-
-[[package]]
-name = "groq"
-version = "0.30.0"
-requires_python = ">=3.8"
-summary = "The official Python library for the groq API"
-groups = ["default"]
-dependencies = [
-    "anyio<5,>=3.5.0",
-    "distro<2,>=1.7.0",
-    "httpx<1,>=0.23.0",
-    "pydantic<3,>=1.9.0",
-    "sniffio",
-    "typing-extensions<5,>=4.10",
-]
-files = [
-    {file = "groq-0.30.0-py3-none-any.whl", hash = "sha256:6d9609a7778ba56432f45c1bac21b005f02c6c0aca9c1c094e65536f162c1e83"},
-    {file = "groq-0.30.0.tar.gz", hash = "sha256:919466e48fcbebef08fed3f71debb0f96b0ea8d2ec77842c384aa843019f6e2c"},
 ]
 
 [[package]]
